@@ -56,7 +56,7 @@ fn main(){
         let low = low.trim().parse::<bool>().unwrap();
 
 
-        println!("\nDoes the password need to contain lowercase characters? [true/false]");
+        println!("\nDoes the password need to contain uppercase characters? [true/false]");
 
         let mut upp = String::new();
 
