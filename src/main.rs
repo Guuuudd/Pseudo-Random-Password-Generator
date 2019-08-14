@@ -8,19 +8,19 @@ use std::io::prelude::*;
 fn main(){
 
         println!("\nPSEUDO RANDOM PASSWORD GENERATOR\n");
-        println!("The generated passwords will be saved in a text file.\n");
+        println!("The generated passwords will be saved (as a .TXT file) in the folder where the generator is.\n");
 
     loop {
         
-        println!("\nInsert the number of characters [from 4 up to 99]");
+        println!("\nHow many characters do you want in your password(s)? [number]");
 
         let mut len = String::new();
 
         io::stdin().read_line(&mut len).expect("Error");
 
-        if len.trim() == "" || len.trim() <= "3" { println!("\nInvalid operation, you need to insert a number!"); continue; }
-
         let len = len.trim().parse::<usize>().unwrap();
+
+        if len == 0 { println!("\nInvalid operation, you need to insert a valid number!"); continue; }
 
 
         println!("\nDoes the password need to contain numbers? [true/false]");
@@ -67,15 +67,16 @@ fn main(){
         let upp = upp.trim().parse::<bool>().unwrap();
 
 
-        println!("\nHow many passwords do you need?");
+        println!("\nHow many passwords do you need? [number]");
 
         let mut pw_num = String::new();
 
         io::stdin().read_line(&mut pw_num).expect("Error");
 
-        if pw_num.trim() == "" || pw_num.trim() <= "0" { println!("\nInvalid operation, you need to insert a positive number!"); continue; }
-
         let pw_num = pw_num.trim().parse::<usize>().unwrap();
+
+        if pw_num == 0 { println!("\nInvalid operation, you need to insert a positive number!"); continue; }
+
 
         let pg = PasswordGenerator {
             length: len,
@@ -88,7 +89,7 @@ fn main(){
 
         let xy = pg.generate(pw_num).unwrap();
 
-        open_file(&xy);
+        create_write(&xy);
 
         break;
 
@@ -96,7 +97,7 @@ fn main(){
 
 }
 
-fn open_file(text: &Vec<String>) {
+fn create_write(text: &Vec<String>) {
 
     let pg = PasswordGenerator {
         length: 10,
